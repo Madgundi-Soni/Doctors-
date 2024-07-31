@@ -1,0 +1,132 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fontawesome-all.min.css' %}">
+   
+    <title>Login</title>
+  </head>
+  <body>
+    <div class="login-register-wrapper">
+        <div class="min-vh-100 form-wrap">
+            <div class="form-mask bg-secondary"></div>
+            <div class="form-content d-flex min-vh-100">
+                <div class="container my-auto">
+                    <div class="row">
+                        <div class="col-md-9 col-lg-7 col-xl-5 mx-auto">
+                            <div class="form-wrap bg-white shadow-md rounded p-4 px-sm-5 mt-4">
+                                <div class="form-mask opacity-9 bg-white"></div>
+                                <div class="form-content">
+                                    <div class="logo">
+                                        <!-- <a class="d-flex justify-content-center" href="index.html" title="Doctors+"><img src="https://www.google.com/imgres?q=doctor%20images%20hd&imgurl=https%3A%2F%2Fw0.peakpx.com%2Fwallpaper%2F955%2F713%2FHD-wallpaper-doctor-medical.jpg&imgrefurl=https%3A%2F%2Fwww.peakpx.com%2Fen%2Fhd-wallpaper-desktop-fxhjb&docid=MkEmJ47uxABfiM&tbnid=cKudGA2i3x0-DM&vet=12ahUKEwizjLzvlcyHAxVzzTgGHWFtAHUQM3oECCgQAA..i&w=800&h=800&hcb=2&ved=2ahUKEwizjLzvlcyHAxVzzTgGHWFtAHUQM3oECCgQAA" alt="Doctors+"></a> -->
+                                        <a class="d-flex justify-content-center"  href="/" style="color: white-space; font-weight: bold;font-size: xxx-large;" title="Doctors+">Doctors<img style="width: 19%;" src="https://static.vecteezy.com/system/resources/thumbnails/018/873/933/small_2x/blue-circle-and-white-plus-add-new-create-symbol-user-interface-theme-3d-icon-rendering-illustration-isolated-png.png" alt="Doctors+"></a>
+                                    </div>
+                                    <hr class="mx-n4 mx-sm-n5">
+                                    <h6 class="lead text-center mb-4">Login Here</h6>
+                                    <h5 class="mb-3" style="color:red">{{message}}</h5>
+              <h5 class="mb-3" style="color:red" id="message"></h5>
+                                    <form method="post" name="myForm" onsubmit="return loginFun(event);"  class="needs-validation"  id="login-form" novalidate>
+                                      {% csrf_token %}
+                                        <div class="form-floating mb-3">
+                                            <input type="email" class="form-control" id="email" name="email" aria-describedby="email" required placeholder="Enter Your Email">
+                                            <label for="exampleInputEmail1">Enter Your Email</label>
+                                          </div>
+                                          <div class="form-floating mb-3">
+                                                <input id="password" type="password" id="password" class="form-control" name="password"  placeholder="********">
+                                                <i id="togglePassword" class="fa fa-fw fa-eye toggle-password field-icon"></i>
+                                                <label for="exampleInputPassword1">Enter Password</label>
+
+                                          </div>
+                                      
+
+                                          <button type="submit"  class="btn btn-filled hover-filled-opacity my-4 w-100">
+                                            <span>Submit</span>
+                                          </button>
+                                          
+                                    </form>
+                                    <p class="text-muted text-center mb-2">Don't have an account? <a class="btn-link" 
+                                        href="{% url 'patients_signup_view' %}">Sign Up</a></p>
+                                </div>
+                            </div>
+                            <div class="container-fluid py-3">
+                              <p class="text-2 text-muted text-center text-light mb-0">"Doctors+ - © Copyright 2024 Thane 421305 Mumbai, Maharashtra. All Rights Reserved."
+
+                            </p>
+                                <p class="text-center text-2 text-muted mb-0"><a >GET IN TOUCH WITH US</a></p>
+                                <p class="text-center text-2 text-muted mb-0">+91 1800 3344 55</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+      function loginFun(event) {
+  let email = document.forms["myForm"]["email"].value;
+  let pass2 = document.forms["myForm"]["password"].value;
+  
+  // console.log('------pass1',pass1)
+  if (email==""){
+    document.getElementById('message').style.display = 'block'
+    document.getElementById('message').innerHTML="please enter your email"
+    setTimeout( ()=>{
+    document.getElementById('message').style.display = 'none'
+    }, 3000)
+      event.preventDefault();
+      return false;
+  }
+  
+    if (pass2=="") {
+    document.getElementById('message').style.display = 'block'
+    document.getElementById('message').innerHTML="please enter your password"
+    // $(window).scrollTop(0);
+    setTimeout( ()=>{
+    document.getElementById('message').style.display = 'none'
+    }, 3000)
+    
+    event.preventDefault();
+    return false;
+    }
+    // if(pass2.length<8){
+    //   document.getElementById('message').style.display = 'block'
+    // document.getElementById('message').innerHTML="Password must be 8 digits"
+    // // $(window).scrollTop(0);
+    // setTimeout( ()=>{
+    // document.getElementById('message').style.display = 'none'
+    // }, 3000)
+    
+    // event.preventDefault();
+    // return false;
+    // }
+  
+   
+  
+  
+  // event.preventDefault();
+  return true;
+}
+
+    </script>
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- <script src="js/jquery-3.5.0.min.js"></script> -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <!-- <script src="js/main.js"></script> -->
+
+  
+  </body>
+</html>

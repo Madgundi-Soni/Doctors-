@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <title>Patient Dashboard</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark my-2">
+    <a class="navbar-brand" href="#"><b>Doctos+</b></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-center" href="#">Patient Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+        <a class="btn btn-outline-light mx-2 my-sm-0" href="{% url 'logout_view'%}" type="submit">Logout</a>
+      </form>
+    </div>
+  </nav>
+
+
+  <div class="  container col-8">
+
+    <h1 class=" my-4 text-center">Patient Dashboard</h1>
+    <div class="card text-center">
+      
+      {% if user %}
+      <div class="card-header">
+        <h2>
+          Welcome 
+            <b>{{user.first_name}} {{user.last_name}}</b>
+            
+          </h6>
+        </div>
+        <div class="card-body">
+          <div class="container d-flex justify-content-center">
+            <img id="img-preview="card-img-top alt="Thumbnail" style="height: 150px; width:25%; display: block;" {% if user.profile %} src="{{user.profile.url}}" {% endif %}>
+            
+         </div>
+         <p class="card-text"></p>
+
+         <ul class="list-group ">
+          <li class="list-group-item">Email : {{user.email}}</li>
+          
+          <li class="list-group-item">Username : {{user.username}}</li>
+          <li class="list-group-item">First Name : {{user.first_name}}</li>
+          <li class="list-group-item">Last name : {{user.last_name}}</li>
+          <li class="list-group-item">Address Line1 : {{add.line1}}</li>
+          <li class="list-group-item">City : {{add.city}}</li>
+          <li class="list-group-item">State : {{add.state}}</li>
+          <li class="list-group-item">Pincode : {{add.pincode}}</li>
+        </ul>
+
+      </div>
+      <div class="card-footer text-muted">
+        
+      
+      </div>
+
+      {% endif %}
+    </div>
+    
+
+
+
+  </div>
+
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
