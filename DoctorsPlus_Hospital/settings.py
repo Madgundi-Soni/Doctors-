@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-(j6-6g!n*_qcp@uhz#o^$y!2@bke_o7=pk0f(_ar(pfr9a=1n7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'doctors',
     'patients',
     'user_details',
+    # 'rest_framework',
 ]
 
 AUTH_USER_MODEL = 'user_details.User'
@@ -72,19 +73,54 @@ TEMPLATES = [
     },
 ]
 
+
+
+
 WSGI_APPLICATION = 'DoctorsPlus_Hospital.wsgi.application'
 
+
+# REST_FRAMEWORK = {
+#     # Use Django's standard `django.contrib.auth` permissions,
+#     # or allow read-only access for unauthenticated users.
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         # 'rest_framework.permissions.DjangoModelPermissions',
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+
+#         # 'rest_framework.renderers.<corresponding_renderer>'
+
+#     ]
+# }
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         # 'ENGINE': 'django.db.backends.mysql',
+#          'ENGINE': 'django.db.backends.sqlite3',
+        
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#         # 'NAME': 'doctorsplus_hospital',
+#         # 'HOST':'127.0.0.1',
+#         # 'POST':'3306',
+#         # 'USER':'root',
+#         # 'PASSWORD':'root',
+
+#     }
+# }
+
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'Sonaa$d_database',
+        'USER': 'Sonaa',
+        'PASSWORD': 'Data1234',
+        'HOST': 'Sonaa.mysql.pythonanywhere-services.com',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
