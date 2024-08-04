@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style>
+           
+  </style>
+  <style>
+    .modal1 {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content1 {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close1 {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close1:hover,
+.close1:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+  </style>
+  <title>Doctors Dashboard</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark my-2">
+    <a class="navbar-brand" href="{% url 'doctor_dashboard' blog.user.id %}"><b>Doctos+</b></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-center" href="{% url 'doctor_dashboard' blog.user.id %}">Doctors Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+        <a class="btn btn-outline-light mx-2 my-sm-0" href="{% url 'logout_view'%}" type="submit">Logout</a>
+      </form>
+    </div>
+  </nav>
+
+  <div class="  container bg-light">
+    <div class="row">
+        <div class="col-2"></div>
+    
+    <div class="col-10" id="main">
+        <div id="myModal" class="modal1">
+
+            <!-- Modal content -->
+            <div class="modal-content1 align-items-center text-white bg-primary border-0">
+              <span class="close1">&times;</span>
+              <p id="text_h"></p>
+            </div>
+          
+          </div>
+
+    <h4 class=" my-4 text-center">Edit Blog</h4>
+    <h5 class="mb-3" style="color:red" id="message"></h5>
+    {% if blog %}
+      
+    <div class="card">
+      
+      
+      <div class="card-header">
+        <div class="container d-flex justify-content-center">
+            
+            <img id="img-preview"class="card-img-top" alt="Thumbnail" style="height: 450px; width:255%; display: block;" {% if blog.image %} src="{{blog.image.url}}" {% endif %}>
+            
+         </div>
+         <input type="file" class="form-control" id="image" name="image" accept="image/*">
+        </div>
+        <div class="card-body">
+          
+         <p><h5 class="card-title">Title</h5> <input class="form-control" name="title"  id="title" type="text" value="{{blog.title}}"></p>
+         
+        {% csrf_token %}
+         <h6 class="card-text">Category </h6>
+         <select  name="category" id="category" class="form-control">
+            <option value="{{blog.categories.name}}" >{{blog.categories.name}}</option>
+
+            {% for i in cat %}
+            {% if blog.categories.id != i.id %}
+            <option value="{{i.id}}">{{i.name}}</option>
+            {% endif %}
+            {% endfor  %}
+
+          </select>
+
+         <h6 class="card-text">Summary </h6>
+         <textarea class="form-control" name="summary" rows="5" id="summary">{{blog.summary}}</textarea>
+         
+         <h6 class="card-text">Content: </h6>
+         <textarea class="form-control" name="content" rows="5" id="content">{{blog.content}}</textarea>
+         
+         <button class="btn text-white bg-primary" onclick="post_func()">Save</button>
+         <button class="btn text-white bg-danger" onclick="draft_func()">Save to Draft</button>
+         <!-- <ul class="list-group ">
+          <li class="list-group-item"> : </li>
+          
+          <li class="list-group-item">Username : {{user.username}}</li>
+          <li class="list-group-item">First Name : {{user.first_name}}</li>
+          <li class="list-group-item">Last name : {{user.last_name}}</li>
+          <li class="list-group-item">Address Line1 : {{add.line1}}</li>
+          <li class="list-group-item">City : {{add.city}}</li>
+          <li class="list-group-item">State : {{add.state}}</li>
+          <li class="list-group-item">Pincode : {{add.pincode}}</li>
+        </ul> -->
+
+      </div>
+      <!-- <div class="card-footer text-muted">
+        
+      
+      </div> -->
+    </div>
+    
+
+
+    
+
+      
+      {% else %}
+      <div class="card">
+      
+      
+       
+          <div class="card-body">
+            
+           <h5 class="card-title">0 blogs</h5>
+        </div>
+        </div>
+    {% endif %}
+</div>
+</div>
+    </div>   
+    
+
+    <script>
+
+        function post_func(){  
+        let formData = new FormData();
+        // formData.append('csrfmiddlewaretoken', document.getElementsByName('csrfmiddlewaretoken')[0].value),
+        
+        formData.append('title', document.getElementById('title').value);
+        formData.append('image',document.getElementById('image').files[0]);
+        formData.append('summary',document.getElementById('summary').value,);
+        formData.append('content',document.getElementById('content').value,);
+        formData.append('category',document.getElementById('category').value);
+      
+      
+        console.log(formData)
+        // let csrftoken = {{csrftoken}}
+        fetch(`{{ request.scheme }}://{{ request.get_host }}/doctors/edit_blog/{{blog.id}}/`, {
+          body: formData,
+      
+          method: 'POST',
+          headers: {
+            // 'Accept': 'application/json, text/plain, */*',
+            //  'Content-Type': 'multipart/form-data',
+             'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value,
+          },
+          Cache: 'default'
+        })
+        .then(response => {
+          //handle response   
+          console.log(response.status);
+          if (response.status==201){
+            // alert('successfully blog added')
+            document.getElementById('text_h').innerHTML="successfully blog added"
+            var modal = document.getElementById("myModal");
+            // document.getElementById('clos').click()
+            modal.style.display = "block";
+            // location.reload();
+            setTimeout(function(){
+         window.location.reload(1);
+      }, 2000);
+          }         
+          
+        })
+        .then(data => {
+          //handle data
+          console.log(data);
+        })
+        .catch(error => {
+          //handle error
+        });
+        return false;
+      }
+      
+      
+      
+      function draft_func(){  
+        let formData = new FormData();
+        // formData.append('csrfmiddlewaretoken', document.getElementsByName('csrfmiddlewaretoken')[0].value),
+        let title=document.getElementById('title').value
+        if (title!=''){
+        formData.append('title',title );
+        formData.append('image',document.getElementById('image').files[0]);
+        formData.append('summary',document.getElementById('summary').value,);
+        formData.append('content',document.getElementById('content').value,);
+        formData.append('category',document.getElementById('category').value);
+        formData.append('draft','True');
+        console.log(formData)
+        // let csrftoken = {{csrftoken}}
+        fetch(`{{ request.scheme }}://{{ request.get_host }}/doctors/edit_blog/{{blog.id}}/`, {
+          body: formData,
+      
+          method: 'POST',
+          headers: {
+            // 'Accept': 'application/json, text/plain, */*',
+            //  'Content-Type': 'multipart/form-data',
+             'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value,
+          },
+          Cache: 'default'
+        })
+        .then(response => {
+          //handle response   
+          console.log(response.status);
+          if (response.status==201){
+            // alert('successfully blog added')
+            document.getElementById('text_h').innerHTML="Saved in Drafts"
+            var modal = document.getElementById("myModal");
+            // document.getElementById('clos').click()
+            modal.style.display = "block";
+            // location.reload();
+            setTimeout(function(){
+         window.location.reload(1);
+      }, 2000);
+          }         
+          
+        })
+        .then(data => {
+          //handle data
+          console.log(data);
+        })
+        .catch(error => {
+          //handle error
+        });
+        return false;
+      
+        }
+        else{
+          document.getElementById('message').style.display = 'block'
+              document.getElementById('message').innerHTML="Please enter Title"
+              $(window).scrollTop(0);
+              // document.getElementById("exampleModalCenter").scrollIntoView();
+              setTimeout( ()=>{
+              document.getElementById('message').style.display = 'none'
+              }, 3000)
+          
+        }
+      
+        
+      }
+      </script>
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

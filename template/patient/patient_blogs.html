@@ -7,7 +7,30 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style>
+            #main {
+            /* width: 75%;
+            height: 200vh;
+            min-height: 1000px; */
+            display: flex;
+            flex-direction: column;
+            /* background: #fff;
+            padding-left: 10px; */
+        }
 
+        #sidebar {
+            /* width: 25%;
+            height: 100vh;
+            min-height: 200px; */
+            overflow: auto;
+            /* background: #a7e9c5; */
+            /* color: #48793c; */
+            position: -webkit-sticky;
+            position: fixed;
+            /* top: 10px;
+            font-size: 25px; */
+        }
+  </style>
   <title>Patient Dashboard</title>
 </head>
 <body>
@@ -27,7 +50,7 @@
           <a class="nav-link text-center" href="#">Patient Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="{% url 'blogs_list' %}" tabindex="-1" aria-disabled="true">Blogs</a>
+          <a class="nav-link" href="{% url 'blogs_list' %}" tabindex="-1" aria-disabled="true">Blogs</a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
@@ -38,29 +61,41 @@
     </div>
   </nav>
 
+  <div class="  container-fluid bg-light">
+    <div class="row">
+      <div class="col-2"></div>
+    <div class="col-2 " id="sidebar">
+    <h4 class=" my-4 text-center">Categories</h4>
+    <div class="p-3 mb-2 bg-secondary text-white text-center"><a class="text-white"  href='{{ request.scheme }}://{{ request.get_host }}/patients/blogs_list/'>All</a></div>
+    {% for i in cat %}
+    <div class="p-3 mb-2 bg-secondary text-white text-center"><a class="text-white"  href='{{ request.scheme }}://{{ request.get_host }}/patients/blogs_list/?cat={{i.id}}'>{{i.name}}</a></div>
+    {% endfor  %}
+    </div>
+    
+    <div class="col-10" id="main">
 
-  <div class="  container col-8">
-
-    <h1 class=" my-4 text-center">Patient Dashboard</h1>
-    <div class="card text-center">
+    <h4 class=" my-4 text-center">Blogs</h4>
+    {% if blogs %}
+      {% for i in blogs %}
+    <div class="card">
       
-      {% if user %}
+      
       <div class="card-header">
-        <h2>
-          Welcome 
-            <b>{{user.first_name}} {{user.last_name}}</b>
-            
-          </h6>
-        </div>
-        <div class="card-body">
-          <div class="container d-flex justify-content-center">
-            <img id="img-preview="card-img-top alt="Thumbnail" style="height: 150px; width:25%; display: block;" {% if user.profile %} src="{{user.profile.url}}" {% endif %}>
+        <div class="container d-flex justify-content-center">
+            <img id="img-preview="card-img-top alt="Thumbnail" style="height: 450px; width:255%; display: block;" {% if i.image %} src="{{i.image.url}}" {% endif %}>
             
          </div>
-         <p class="card-text"></p>
-
-         <ul class="list-group ">
-          <li class="list-group-item">Email : {{user.email}}</li>
+        </div>
+        <div class="card-body">
+          
+         <h5 class="card-title">Title : {{i.title}}</h5>
+         
+         <h6 class="card-text">Summary :  </h6>
+         <p>{{i.summary|truncatechars:15}}</p>
+         <h6 class="card-text">Content: </h6>
+         <p>{{i.content|truncatechars:505}}</p>
+         <!-- <ul class="list-group ">
+          <li class="list-group-item"> : </li>
           
           <li class="list-group-item">Username : {{user.username}}</li>
           <li class="list-group-item">First Name : {{user.first_name}}</li>
@@ -69,21 +104,35 @@
           <li class="list-group-item">City : {{add.city}}</li>
           <li class="list-group-item">State : {{add.state}}</li>
           <li class="list-group-item">Pincode : {{add.pincode}}</li>
-        </ul>
+        </ul> -->
 
       </div>
-      <div class="card-footer text-muted">
+      <!-- <div class="card-footer text-muted">
         
       
-      </div>
-
-      {% endif %}
+      </div> -->
     </div>
     
 
 
+    <br>
 
-  </div>
+      {% endfor %}
+      {% else %}
+      <div class="card">
+      
+      
+       
+          <div class="card-body">
+            
+           <h5 class="card-title">0 blogs</h5>
+        </div>
+        </div>
+    {% endif %}
+</div>
+</div>
+    </div>   
+    
 
 
 
