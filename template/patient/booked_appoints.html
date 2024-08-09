@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  
+  <title>Appointment Booked </title>
+  
+  <style>
+    img {
+      float: left;
+      /* margin-right: -325px; */
+      margin-top: auto;
+      margin-bottom: 10px;
+      width: 200px;
+      height: 200px;
+      border-radius: 100%;
+      overflow: hidden;
+      background-color: blue;
+    }
+  </style>
+</head>
+<body>
+  
+  {% load static %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark my-2">
+    
+    <a class="navbar-brand" href=""><b>Doctos+</b></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link text-center" href="#">Patient Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="{% url 'blogs_list' %}" tabindex="-1" aria-disabled="true">Blogs</a>
+          </li>
+  
+          <li class="nav-item">
+            <a class="nav-link text-center" href="{% url 'book_appointment' %}">Book An Appointment </a>
+          </li>
+        
+        
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+        <a class="btn btn-outline-light mx-2 my-sm-0" href="{% url 'logout_view'%}" type="submit">Logout</a>
+      </form>
+    </div>
+  </nav>
+  
+  
+  
+<div class="container  col-6 ">
+  <h2>Appointment Booked</h2>
+  <div class="accordion" id="accordionExample">
+    
+    <div class="card">
+      
+      
+      
+      <div >
+        
+        <div class="card-body text-center">
+          <div class="container">
+            
+            <div class="row d-flex justify-content-center">
+              {% if app.doc.profile %} 
+              <img id="img-preview" style="max-height:100px;max-width:100px;" src="{{ app.doc.profile.url }}"  alt="No profile">
+              
+              {% else %}
+              
+              <img id="img2-preview"   style="max-height:100px;max-width:100px;"  alt="No profile" src="data:image/png;base64,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">
+              {% endif %} 
+              
+            </div> 
+            
+            <div class="row d-flex justify-content-center ">
+              <h4 style="    margin-top: 9px;">Dr Name : {{app.doc.first_name}} {{app.doc.last_name}}</h4>
+
+              
+
+              
+
+            </div>
+            <br>
+            <!-- Button trigger modal -->
+
+             <div class="row d-flex justify-content-center">
+                <h5> Date : {{app.start_date_time|date}}</h5>
+             </div>
+             <br>
+            
+             <div class="row d-flex justify-content-center">
+                <h5>From : {{app.start_date_time|time}}</h5>
+             </div>
+             <br>
+             <div class="row d-flex justify-content-center">
+                <h5>To` : {{app.end_date_time|time}}</h5>
+             </div>
+            <br>
+             <div class="row d-flex justify-content-center">
+                <a class="btn btn-dark" href="{% url 'book_appointment' %}">Book Another</a>
+             </div>
+            <!-- Modal -->
+            
+            
+          </div>
+          </div><hr>
+          
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+</div>
+  
+  
+  
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
