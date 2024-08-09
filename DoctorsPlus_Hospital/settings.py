@@ -94,33 +94,33 @@ WSGI_APPLICATION = 'DoctorsPlus_Hospital.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         # 'ENGINE': 'django.db.backends.mysql',
-#          'ENGINE': 'django.db.backends.sqlite3',
-        
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#         # 'NAME': 'doctorsplus_hospital',
-#         # 'HOST':'127.0.0.1',
-#         # 'POST':'3306',
-#         # 'USER':'root',
-#         # 'PASSWORD':'root',
-
-#     }
-# }
-
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'Sonaa$d_database',
-        'USER': 'Sonaa',
-        'PASSWORD': 'Data1234',
-        'HOST': 'Sonaa.mysql.pythonanywhere-services.com',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
+        # 'ENGINE': 'django.db.backends.mysql',
+         'ENGINE': 'django.db.backends.sqlite3',
+        
+        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'NAME': 'doctorsplus_hospital',
+        # 'HOST':'127.0.0.1',
+        # 'POST':'3306',
+        # 'USER':'root',
+        # 'PASSWORD':'root',
+
     }
 }
+
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql', 
+#         'NAME': 'Sonaa$d_database',
+#         'USER': 'Sonaa',
+#         'PASSWORD': 'Data1234',
+#         'HOST': 'Sonaa.mysql.pythonanywhere-services.com',   # Or an IP Address that your DB is hosted on
+#         'PORT': '3306',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -139,6 +139,16 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+OAUTH2_PROVIDER = {
+    'SCOPES': {'calendar': 'Read/write access to Calendar'},
+    'CLIENT_ID': '650284881740-ogi5cv7h4n7qk5utoorkoq2mbmho4kh4.apps.googleusercontent.com',
+    'CLIENT_SECRET': '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',
+}
+
+GOOGLE_TOKEN_FILE = 'token.json'
+
 
 
 # Internationalization
@@ -172,7 +182,7 @@ USE_TZ = True
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static' # For Deployment
+STATIC_ROOT = os.path.join(BASE_DIR, 'static') # For Deployment
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -181,3 +191,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+TIME_ZONE =  'Asia/Kolkata'
