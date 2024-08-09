@@ -22,3 +22,11 @@ class Blogs(models.Model):
 
     # def __str__(self):
     #     return self.title
+
+
+class Appointments(models.Model):
+    doc=models.ForeignKey(User ,on_delete=models.CASCADE,null=True,blank=True, related_name='doct')
+    pat=models.ForeignKey(User ,on_delete=models.CASCADE,null=True,blank=True, related_name='pati')
+    start_date_time=models.DateTimeField(null=True,blank=True)
+    end_date_time=models.DateTimeField(null=True,blank=True)
+    status=models.BooleanField(default=False)

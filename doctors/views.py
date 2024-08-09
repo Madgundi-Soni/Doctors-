@@ -53,7 +53,8 @@ def blog_submit(request ):
         image=request.FILES.get('image')
         if request.POST.get('draft'):
             is_draft=request.POST.get('draft')
-
+            if is_draft=="True":
+                is_draft=True
         else:
             is_draft=False
 
@@ -77,6 +78,8 @@ def Edit_blog(request,id):
         image=request.FILES.get('image')
         if request.POST.get('draft'):
             is_draft=request.POST.get('draft')
+            if is_draft=="True":
+                is_draft=True
         else:
             is_draft=False
         blog=Blogs.objects.get(id=id)
